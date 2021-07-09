@@ -5,6 +5,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\API\MidtransController;
 
 /*
@@ -34,6 +35,10 @@ Route::prefix('dashboard')
         Route::get('transactions/{id}/status/{status}',[TransactionController::class, 'changeStatus'])
         ->name('transactions.changeStatus');
         Route::resource('transactions', TransactionController::class);
+
+        Route::get('orders/{id}/status/{status}',[OrderController::class, 'changeStatus'])
+        ->name('orders.changeStatus');
+        Route::resource('orders', OrderController::class);
     });
 
 
