@@ -66,6 +66,7 @@
                                     <a href="{{ $item->payment_url }}">{{ $item->payment_url }}</a>
                                 </div>
                             </div>
+                            @if( $item->status != 'DELIVERED')
                             <div class="w-1/6">
                                 <div class="text-sm mb-1">Change Status</div>
                                 <a href="{{ route('transactions.changeStatus', ['id' => $item->id, 'status' => 'ON_DELIVERY']) }}"
@@ -81,6 +82,7 @@
                                     Cancelled
                                 </a>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
