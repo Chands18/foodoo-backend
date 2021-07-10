@@ -6,6 +6,8 @@ use App\Models\Transaction;
 use App\Models\Food;
 use Illuminate\Http\Request;
 use App\Http\Requests\FoodRequest;
+use App\Exports\TransactionExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class TransactionController extends Controller
@@ -44,6 +46,12 @@ class TransactionController extends Controller
     {
         //
     }
+
+    public function exportExcel()
+	{
+        $filename = urlencode("TranscationEcanteen".date("Y-m-d H:i:s").".xlsx");
+		return Excel::download(new TransactionExport, $filename);
+	}
 
     /**
      * Display the specified resource.
