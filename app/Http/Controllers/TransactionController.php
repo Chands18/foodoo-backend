@@ -98,8 +98,10 @@ class TransactionController extends Controller
     {
         // Update Status Trx
         $transaction = Transaction::findOrFail($id);
-        $transaction->status = $status;
-        $transaction->save();
+        if($transaction->status != 'DELIVERED'){
+            $transaction->status = $status;
+            $transaction->save();
+        }
 
         // Update Stock Food Delivered
         if($status === 'DELIVERED'){
