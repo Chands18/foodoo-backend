@@ -106,10 +106,10 @@ class TransactionController extends Controller
         // Update Stock Food Delivered
         if($status === 'DELIVERED'){
             $food = Food::findOrFail($transaction->food_id);
-           $data = $food->stock - $transaction->quantity;
-           Food::where('id', $transaction->food_id)->update([
-               'stock' => $data
-           ]);
+            $updateStock = $food->stock - $transaction->quantity;
+            $food->stock = $updateStock;
+            $food->save();
+      
         }
 
         return redirect()->route('transactions.show', $id);
