@@ -26,7 +26,7 @@ class FoodController extends Controller
         {
             $food = Food::find($id);
 
-            if($food)
+            if($food && $food->stock > 0)
             {
                 return ResponseFormatter::success(
                     $food,'Data produk berhasil diambil'
@@ -41,7 +41,7 @@ class FoodController extends Controller
             }
         }
 
-        $food = Food::query();
+        $food = Food::query()->where('stock', '>' , 0);
 
         if($name)
         {
@@ -70,7 +70,7 @@ class FoodController extends Controller
 
         return ResponseFormatter::success(
             $food->paginate($limit),
-            'Data list profile berhasil diambil'
+            'Data list produk berhasil diambil'
         );
     }
 }
