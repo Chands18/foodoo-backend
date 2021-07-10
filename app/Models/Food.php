@@ -18,6 +18,7 @@ class Food extends Model
         'ingredients',
         'price',
         'rate',
+        'stock',
         'types',
         'picturePath'
     ];

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Food;
 use Illuminate\Http\Request;
+use App\Http\Requests\FoodRequest;
+
 
 class TransactionController extends Controller
 {
@@ -91,12 +94,21 @@ class TransactionController extends Controller
         return redirect()->route('transactions.index');
     }
 
-    public function changeStatus(Request $request, $id, $status)
+    public function changeStatus(Request $request, $id, $status, Food $food)
     {
+        // Update Status Trx
         $transaction = Transaction::findOrFail($id);
-
         $transaction->status = $status;
         $transaction->save();
+
+        // Update Stock Food Delivered
+        if($status === 'DELIVERED'){
+            $food = Food::findOrFail($transaction->food_id);
+           $data = $food->stock - $transaction->quantity;
+           Food::where('id', $transaction->food_id)->update([
+               'stock' => $data
+           ]);
+        }
 
         return redirect()->route('transactions.show', $id);
     }
