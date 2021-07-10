@@ -20,8 +20,14 @@ class Food extends Model
         'rate',
         'stock',
         'types',
-        'picturePath'
+        'picturePath',
+        'seller_id'
     ];
+
+    public function seller()
+    {
+        return $this->hasOne(seller::class, 'id', 'seller_id');
+    }
 
     public function getCreatedAtAttribute($value)
     {

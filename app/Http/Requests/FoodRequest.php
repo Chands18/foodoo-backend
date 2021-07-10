@@ -31,6 +31,8 @@ class FoodRequest extends FormRequest
                 'price' => 'required|integer',
                 'rate' => 'required|integer',
                 'types' => '',
+                'stock' => '',
+                'seller_id' => '',
             ];
     }
 }

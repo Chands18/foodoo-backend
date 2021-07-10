@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Food;
 use App\Models\Seller;
 use Illuminate\Http\Request;
-use App\Http\Requests\FoodRequest;
 
-class FoodController extends Controller
+class SellerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,10 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $food = Food::paginate(10);
+        $seller = Seller::paginate(10);
 
-        return view('food.index', [
-            'food' => $food
+        return view('sellers.index', [
+            'seller' => $seller
         ]);
     }
 
@@ -30,7 +28,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('food.create');
+        return view('sellers.create');
     }
 
     /**
@@ -39,15 +37,13 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FoodRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
 
-        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        Seller::create($data);
 
-        Food::create($data);
-
-        return redirect()->route('food.index');
+        return redirect()->route('sellers.index');
     }
 
     /**
@@ -56,7 +52,7 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Food $food)
+    public function show(seller $seller)
     {
         //
     }
@@ -67,12 +63,10 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Food $food, Seller $seller)
+    public function edit(seller $seller)
     {
-        $sellers = Seller::all();
-        return view('food.edit',[
-            'item' => $food,
-            'sellers' => $sellers
+        return view('sellers.edit',[
+            'item' => $seller
         ]);
     }
 
@@ -83,18 +77,14 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FoodRequest $request, Food $food)
+    public function update(Request $request, seller $seller)
     {
         $data = $request->all();
 
-        if($request->file('picturePath'))
-        {
-            $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
-        }
+       
+        $seller->update($data);
 
-        $food->update($data);
-
-        return redirect()->route('food.index');
+        return redirect()->route('sellers.index');
     }
 
     /**
@@ -103,10 +93,10 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Food $food)
+    public function destroy(seller $seller)
     {
-        $food->delete();
+        $seller->delete();
 
-        return redirect()->route('food.index');
+        return redirect()->route('sellers.index');
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\API\MidtransController;
+use App\Http\Controllers\SellerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,11 +35,14 @@ Route::prefix('dashboard')
 
         Route::get('transactions/{id}/status/{status}',[TransactionController::class, 'changeStatus'])
         ->name('transactions.changeStatus');
+        Route::get('transactions/export/excel',[TransactionController::class, 'exportExcel'])
+        ->name('transactions.exportExcel');
         Route::resource('transactions', TransactionController::class);
-
+  
         Route::get('orders/{id}/status/{status}',[OrderController::class, 'changeStatus'])
         ->name('orders.changeStatus');
         Route::resource('orders', OrderController::class);
+        Route::resource('sellers', SellerController::class);
     });
 
 
