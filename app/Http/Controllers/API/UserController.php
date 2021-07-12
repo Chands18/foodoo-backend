@@ -59,36 +59,35 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required','string','max:255'],
-                'email' => ['required','string','email','max:255','users'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => $this->passwordRules()
-            ]);
 
+            ]);
             User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'address' => $request->address,
-                'houseNumber' => $request->houseNumber,
-                'phoneNumber' => $request->phoneNUmber,
-                'city' => $request->city,
-                'password' => Hash::make($request->password)
+                'name'            => $request->name,
+                'email'           => $request->email,
+                'address'         => $request->address,
+                'houseNumber'     => $request->houseNumber,
+                'phoneNumber'     => $request->phoneNumber,
+                'city'            => $request->city,
+                'password'        => Hash::make($request->password),
             ]);
 
             $user = User::where('email', $request->email)->first();
 
-            $tokenResult = $user->createToken('AuthToken')->plainTextToken;
+            $tokenResult = $user->createToken('authToken')->plainTextToken;
 
             return ResponseFormatter::success([
-                'access_token' => $tokenResult,
-                'token_type' => 'Bearer',
-                'user' => $user
-            ], 'User Registered');
-
+                'access_token'    => $tokenResult,
+                'token_type'      => 'Bearer',
+                'user'            => $user
+            ]);
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'message' => 'Something went wrong',
-                'error' => $error
-            ],'Authentication Failed', 500);
+                'message'        => 'Something went wrong',
+                'error'          => $error
+            ], 'Authentication Failed', 500);
         }
     }
 
