@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Actions\Fortify\PasswordValidationRules;
+
 
 class UserController extends Controller
 {
+    use PasswordValidationRules;
+
     /**
      * Display a listing of the resource.
      *
@@ -80,7 +84,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
         $data = $request->all();
 
@@ -88,7 +92,14 @@ class UserController extends Controller
         {
             $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
         }
-
+        $this->validate($request, [
+            'name' => ['required','string','max:255'],
+            'address' => ['required','string'],
+            'roles' => ['required','string', 'max:255','in:USER,ADMIN'],
+            'houseNumber' => ['required','string','max:255'],
+            'phoneNumber' => ['required','string','max:255'],
+            'city' => ['required','string','max:255'],
+        ]);
         $user->update($data);
 
         return redirect()->route('users.index');
