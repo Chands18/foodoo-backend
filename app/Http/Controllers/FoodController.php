@@ -42,9 +42,11 @@ class FoodController extends Controller
     public function store(FoodRequest $request)
     {
         $data = $request->all();
-
+        $this->validate($request, [
+            'picturePath' => ['required','image'],
+        ]);
         $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
-
+        
         Food::create($data);
 
         return redirect()->route('food.index');
