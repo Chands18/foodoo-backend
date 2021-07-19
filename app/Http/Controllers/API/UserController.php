@@ -22,12 +22,12 @@ class UserController extends Controller
         try {
             // Validasi input
             $request->validate([
-                'email' => 'email|required',
+                'phoneNumber' => 'required',
                 'password' => 'required',
             ]);
 
             // Mengecek credentials (login)
-            $credentials = request(['email','password']);
+            $credentials = request(['phoneNumber','password']);
             if(!Auth::attempt($credentials)) {
                 return ResponseFormatter::error([
                     'message' => 'Unauthorized'
@@ -35,7 +35,7 @@ class UserController extends Controller
             }
 
             // Jika hash tidak sesuai maka beri error
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('phoneNumber', $request->phoneNumber)->first();
             if(!Hash::check($request->password,$user->password,[] )) {
                 throw new \Exception('Invalid Credentials');            
             }
