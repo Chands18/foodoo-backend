@@ -17,11 +17,11 @@ class Seller extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->timestamp;
+        return Carbon::parse($value)->format('Y-m-d H:i');
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->timestamp;
+        return Carbon::parse($value)->format('Y-m-d H:i');
     }
 }
