@@ -12,7 +12,6 @@
                     <thead>
                     <tr>
                         <th class="border px-6 py-4">ID</th>
-                        <th class="border px-6 py-4">Food</th>
                         <th class="border px-6 py-4">User</th>
                         <th class="border px-6 py-4">Quantity</th>
                         <th class="border px-6 py-4">Total</th>
@@ -24,7 +23,6 @@
                         @forelse($order as $item)
                             <tr>
                                 <td class="border px-6 py-4">{{ $item->id }}</td>
-                                <td class="border px-6 py-4 ">{{ $item->food->name }}</td>
                                 <td class="border px-6 py-4 ">{{ $item->user->name }}</td>
                                 <td class="border px-6 py-4">{{ $item->quantity }}</td>
                                 <td class="border px-6 py-4">{{ number_format($item->total) }}</td>
