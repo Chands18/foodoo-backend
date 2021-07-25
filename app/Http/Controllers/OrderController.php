@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
-
+use PDF;
 
 class OrderController extends Controller
 {
@@ -33,7 +33,19 @@ class OrderController extends Controller
     {
         //
     }
-
+    public function generatePDF(Request $request, $id)
+    {
+        // $order = Transaction::findOrFail($id);
+        $order = Transaction::with(['food','user'])
+        ->findOrFail($id);
+       
+        $pdf = PDF::loadView('orders.print', [
+            'item' => $order
+        ])
+        ->setPaper('A8', 'portrait');
+    
+        return $pdf->stream('orderPrint.pdf', array("Attachment" => false));
+    }
     /**
      * Store a newly created resource in storage.
      *

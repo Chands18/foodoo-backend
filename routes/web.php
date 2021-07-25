@@ -38,9 +38,13 @@ Route::prefix('dashboard')
         Route::get('transactions/export/excel',[TransactionController::class, 'exportExcel'])
         ->name('transactions.exportExcel');
         Route::resource('transactions', TransactionController::class);
-  
+        Route::get('transactions/print/{id}/',[TransactionController::class, 'generatePDF'])
+        ->name('transactions.print');
+
         Route::get('orders/{id}/status/{status}',[OrderController::class, 'changeStatus'])
         ->name('orders.changeStatus');
+        Route::get('orders/print/{id}/',[OrderController::class, 'generatePDF'])
+        ->name('orders.print');
         Route::resource('orders', OrderController::class);
         Route::resource('sellers', SellerController::class);
     });

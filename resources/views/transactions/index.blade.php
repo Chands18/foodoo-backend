@@ -36,6 +36,9 @@
                                     <a href="{{ route('transactions.show', $item->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">
                                         View
                                     </a>
+                                    <a href="{{ route('transactions.print', $item->id) }}" class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mx-2 rounded" target="_blank">
+                                        Print
+                                    </a>
                                     <form action="{{ route('transactions.destroy', $item->id) }}" method="POST" class="inline-block">
                                         {!! method_field('delete') . csrf_field() !!}
                                         <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded inline-block">

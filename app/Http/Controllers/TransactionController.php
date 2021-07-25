@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\FoodRequest;
 use App\Exports\TransactionExport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use PDF;
 
 class TransactionController extends Controller
 {
@@ -35,7 +35,19 @@ class TransactionController extends Controller
     {
         //
     }
-
+    public function generatePDF(Request $request, $id)
+    {
+        // $order = Transaction::findOrFail($id);
+        $order = Transaction::with(['food','user'])
+        ->findOrFail($id);
+       
+        $pdf = PDF::loadView('orders.print', [
+            'item' => $order
+        ])
+        ->setPaper('A8', 'portrait');
+    
+        return $pdf->stream('orderPrint.pdf', array("Attachment" => false));
+    }
     /**
      * Store a newly created resource in storage.
      *
