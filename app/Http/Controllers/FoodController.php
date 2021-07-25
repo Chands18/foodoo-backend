@@ -30,7 +30,10 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('food.create');
+        $sellers = Seller::all();
+        return view('food.create',[
+            'sellers' => $sellers
+        ]);
     }
 
     /**
