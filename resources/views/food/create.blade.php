@@ -109,16 +109,16 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-last-name">
+                    <div class="w-full px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Types
                             </label>
-                            <input value="{{ old('types') }}" name="types"
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text" placeholder="Food Types">
-                            <p class="text-gray-600 text-xs italic">Dipisahkan dengan koma, contoh:
-                                recommended,popular,new_food</p>
+                            <select name="types" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name">
+                            <option value="" disabled selected>Select your option</option>
+                            <option value="RECOMENDED">Recommended</option>
+                            <option value="POPULAR">Popular</option>
+                            <option value="NEW_FOOD">New Food</option>
+                            </select>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">

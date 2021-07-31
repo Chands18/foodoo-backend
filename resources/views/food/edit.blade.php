@@ -90,9 +90,9 @@
                             </label>
                             <select name="types" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name">
                             <option value="{{ old('types') ?? $item->types }}">{{ $item->types}}</option>
-                            <option value="recommended">Recommended</option>
-                            <option value="popular">Popular</option>
-                            <option value="new_food">New Food</option>
+                            <option value="RECOMENDED">Recommended</option>
+                            <option value="POPULAR">Popular</option>
+                            <option value="NEW_FOOD">New Food</option>
                             </select>
                         </div>
                     </div>
