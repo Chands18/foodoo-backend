@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Actions\Fortify\PasswordValidationRules;
-
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class UserController extends Controller
 {
@@ -87,6 +88,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->all();
+        $data['password'] = bcrypt(request('password'));
 
         if($request->file('profile_photo_path'))
         {

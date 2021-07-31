@@ -75,7 +75,4 @@ class User extends Authenticatable
     {
         return Carbon::parse($value)->format('Y-m-d H:i');
     }
-    public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt($value);
-    }
 }
